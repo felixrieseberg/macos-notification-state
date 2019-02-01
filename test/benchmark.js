@@ -14,9 +14,20 @@ async function usingExec() {
   })
 }
 
-console.time('macos-notification-state')
-usingNative()
-console.timeEnd('macos-notification-state')
+async function test() {
+  console.log('Checking dnd with native code (100 times)')
+  console.time('macos-notification-state')
+  for (let index = 0; index < 100; index++) {
+    usingNative()
+  }
+  console.timeEnd('macos-notification-state')
 
-console.time('exec')
-usingExec().then(() => console.timeEnd('exec'))
+  console.log('Checking dnd with exec (100 times)')
+  console.time('exec')
+  for (let index = 0; index < 100; index++) {
+    await usingExec()
+  }
+  console.timeEnd('exec')
+}
+
+test()
