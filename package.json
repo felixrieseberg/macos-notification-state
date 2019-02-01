@@ -6,12 +6,12 @@
   "scripts": {
     "test": "standard && mocha ./test/test.js"
   },
-  "repository": "https://github.com/felixrieseberg/windows-notification-state",
+  "repository": "https://github.com/felixrieseberg/macos-notification-state",
   "license": "MIT",
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://github.com/felixrieseberg/windows-notification-state/blob/master/LICENSE"
+      "url": "http://github.com/felixrieseberg/macos-notification-state/blob/master/LICENSE"
     }
   ],
   "dependencies": {
