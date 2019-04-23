@@ -38,7 +38,7 @@ void _GetDoNotDisturb(const v8::FunctionCallbackInfo<Value>& args) {
   args.GetReturnValue().Set(Int32::New(isolate, returnValue));
 }
 
-void Init(Handle<Object> exports) {
+void Init(Local<Object> exports) {
   Isolate* isolate = Isolate::GetCurrent();
   exports->Set(String::NewFromUtf8(isolate, "getNotificationState"),
       FunctionTemplate::New(isolate, _QueryUserSessionState)->GetFunction());
