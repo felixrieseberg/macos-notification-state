@@ -1,23 +1,27 @@
 // This is pretty simple and dumb.
 
-function usingNative() {
+function usingNative () {
   const { getDoNotDisturb } = require('../lib/index')
   return getDoNotDisturb()
 }
 
-async function usingExec() {
+async function usingExec () {
   const { exec } = require('child_process')
-  return await new Promise((resolve) => {
+  return new Promise(async (resolve, reject) => {
     exec('defaults read ~/Library/Preferences/ByHost/com.apple.notificationcenterui.plist', (error, stdout) => {
+      if (error) {
+        return reject(error)
+      }
+
       resolve(stdout.trim() === '1')
     })
   })
 }
 
-async function test() {
-  console.log('Checking dnd with native code (100 times)')
+async function test () {
+  console.log('Checking dnd with native code (100.000 times)')
   console.time('macos-notification-state')
-  for (let index = 0; index < 100; index++) {
+  for (let index = 0; index < 100000; index++) {
     usingNative()
   }
   console.timeEnd('macos-notification-state')

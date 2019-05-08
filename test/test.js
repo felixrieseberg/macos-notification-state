@@ -10,18 +10,18 @@ if (process.platform !== 'darwin') {
 describe('getSessionState', () => {
   it('should return unknown or error', () => {
     const res = getSessionState()
-    assert.equal((res !== 'UNKNOWN'), true, 'Result is not unknown')
+    assert.strictEqual((res !== 'UNKNOWN'), true, 'Result is not unknown')
   })
 
   it('should return a SESSION_ON_CONSOLE_KEY (this test is flaky, but in most test cases, this should be true)', () => {
     const res = getSessionState()
-    assert.equal((res === 'SESSION_ON_CONSOLE_KEY'), true, 'Result is SESSION_ON_CONSOLE_KEY (normal result)')
+    assert.strictEqual((res === 'SESSION_ON_CONSOLE_KEY'), true, 'Result is SESSION_ON_CONSOLE_KEY (normal result)')
   })
 })
 
 describe('getDoNotDisturb', () => {
   it('should return false', () => {
-    assert.equal(getDoNotDisturb(), false, 'doNotDisturb returns false')
+    assert.strictEqual(getDoNotDisturb(), false, 'doNotDisturb returns false')
   })
 })
 
@@ -39,8 +39,8 @@ describe('getDoNotDisturb / getNotificationState test, interactive', () => {
         console.log('')
         clearInterval(interval)
 
-        assert.equal(getDoNotDisturb(), true)
-        assert.equal(getNotificationState(), 'DO_NOT_DISTURB')
+        assert.strictEqual(getDoNotDisturb(), true)
+        assert.strictEqual(getNotificationState(), 'DO_NOT_DISTURB')
         done()
       }
 
