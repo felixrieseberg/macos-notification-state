@@ -38,12 +38,16 @@ void _GetDoNotDisturb(const v8::FunctionCallbackInfo<Value>& args) {
   args.GetReturnValue().Set(Int32::New(isolate, returnValue));
 }
 
-void Init(Handle<Object> exports) {
+void Init(Local<Object> exports) {
   Isolate* isolate = Isolate::GetCurrent();
-  exports->Set(String::NewFromUtf8(isolate, "getNotificationState"),
-      FunctionTemplate::New(isolate, _QueryUserSessionState)->GetFunction());
-  exports->Set(String::NewFromUtf8(isolate, "getDoNotDisturb"),
-      FunctionTemplate::New(isolate, _GetDoNotDisturb)->GetFunction());
+
+  Nan::Set(exports, String::NewFromUtf8(isolate, "getNotificationState"),
+     Nan::GetFunction(FunctionTemplate::New(isolate, _QueryUserSessionState)).ToLocalChecked()
+  );
+
+  Nan::Set(exports, String::NewFromUtf8(isolate, "getDoNotDisturb"),
+     Nan::GetFunction(FunctionTemplate::New(isolate, _GetDoNotDisturb)).ToLocalChecked()
+  );
 }
 
 NODE_MODULE(notificationstate, Init)
