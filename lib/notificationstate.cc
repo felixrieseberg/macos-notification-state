@@ -41,6 +41,7 @@ void _GetDoNotDisturb(const v8::FunctionCallbackInfo<Value>& args) {
 void Init(Local<Object> exports) {
   Isolate* isolate = Isolate::GetCurrent();
 
+  #ifdef TARGET_OS_MAC
   Nan::Set(exports, String::NewFromUtf8(isolate, "getNotificationState"),
      Nan::GetFunction(FunctionTemplate::New(isolate, _QueryUserSessionState)).ToLocalChecked()
   );
@@ -48,6 +49,7 @@ void Init(Local<Object> exports) {
   Nan::Set(exports, String::NewFromUtf8(isolate, "getDoNotDisturb"),
      Nan::GetFunction(FunctionTemplate::New(isolate, _GetDoNotDisturb)).ToLocalChecked()
   );
+  #endif
 }
 
 NODE_MODULE(notificationstate, Init)
