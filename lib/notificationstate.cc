@@ -8,7 +8,7 @@
 
 using namespace v8;
 
-void _QueryUserSessionState(const v8::FunctionCallbackInfo<Value>& args) {
+NAN_METHOD(QueryUserSessionState) {
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
   int returnValue = -1;
@@ -17,10 +17,10 @@ void _QueryUserSessionState(const v8::FunctionCallbackInfo<Value>& args) {
     returnValue = queryUserSessionState();
   #endif
 
-  args.GetReturnValue().Set(Int32::New(isolate, returnValue));
+  info.GetReturnValue().Set(Int32::New(isolate, returnValue));
 }
 
-void _GetDoNotDisturb(const v8::FunctionCallbackInfo<Value>& args) {
+NAN_METHOD(GetDoNotDisturb) {
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
   int returnValue = -1;
@@ -35,21 +35,18 @@ void _GetDoNotDisturb(const v8::FunctionCallbackInfo<Value>& args) {
     }
   #endif
 
-  args.GetReturnValue().Set(Int32::New(isolate, returnValue));
+  info.GetReturnValue().Set(Int32::New(isolate, returnValue));
 }
 
-void Init(Local<Object> exports) {
-  Isolate* isolate = Isolate::GetCurrent();
-
+NAN_MODULE_INIT(Init) {
   #ifdef TARGET_OS_MAC
-  Nan::Set(exports, String::NewFromUtf8(isolate, "getNotificationState"),
-     Nan::GetFunction(FunctionTemplate::New(isolate, _QueryUserSessionState)).ToLocalChecked()
-  );
-
-  Nan::Set(exports, String::NewFromUtf8(isolate, "getDoNotDisturb"),
-     Nan::GetFunction(FunctionTemplate::New(isolate, _GetDoNotDisturb)).ToLocalChecked()
-  );
+  Nan::SetMethod(target, "getNotificationState", QueryUserSessionState);
+  Nan::SetMethod(target, "getDoNotDisturb", GetDoNotDisturb);
   #endif
 }
 
+#if NODE_MAJOR_VERSION >= 10
+NAN_MODULE_WORKER_ENABLED(notificationstate, Init)
+#else
 NODE_MODULE(notificationstate, Init)
+#endif
