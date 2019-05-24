@@ -29,4 +29,4 @@ console.log(getSessionState())
 ```
 
 #### License
-MIT, please see LICENSE for details. Copyright (c) 2017 Felix Rieseberg.
+MIT, please see LICENSE for details. Copyright (c) 2019 Felix Rieseberg.
