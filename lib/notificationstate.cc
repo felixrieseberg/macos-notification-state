@@ -1,5 +1,6 @@
 #include <node.h>
 #include <v8.h>
+#include <nan.h>
 
 #ifdef TARGET_OS_MAC
 #include "notificationstate-query.h"
