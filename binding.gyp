@@ -3,9 +3,6 @@
     {
       "target_name": "notificationstate",
       "sources": [ "lib/notificationstate.cc" ],
-      "include_dirs": [
-        "<!(node -e \"require('nan')\")"
-      ],
       "conditions": [
         ['OS=="mac"', {
           "sources": ["lib/notificationstate-query.cc", "lib/do-not-disturb.mm"],
