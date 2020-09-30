@@ -57,6 +57,8 @@ static napi_value GetDoNotDisturb(napi_env env, napi_callback_info info) {
 
 NAPI_MODULE_INIT() {
   napi_value result = nullptr;
+  NAPI_CALL(env, napi_create_object(env, &result));
+
   #ifdef __APPLE__
   napi_value exported_function;
   NAPI_CALL(env, napi_create_function(env, "getNotificationState", NAPI_AUTO_LENGTH, QueryUserSessionState, NULL, &exported_function));
