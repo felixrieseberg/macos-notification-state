@@ -4,7 +4,7 @@ const assert = require('assert')
 const { getSessionState, getNotificationState, getDoNotDisturb } = require('../lib/index')
 
 if (process.platform !== 'darwin') {
-  console.error(`You can't run this test on a non-mac machine. Sorry!`)
+  console.error('You can\'t run this test on a non-mac machine. Sorry!')
 }
 
 describe('getSessionState', () => {

@@ -5,9 +5,9 @@ function usingNative () {
   return getDoNotDisturb()
 }
 
-async function usingExec () {
+function usingExec () {
   const { exec } = require('child_process')
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     exec('defaults read ~/Library/Preferences/ByHost/com.apple.notificationcenterui.plist', (error, stdout) => {
       if (error) {
         return reject(error)
