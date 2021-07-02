@@ -14,6 +14,9 @@
       "url": "http://github.com/felixrieseberg/macos-notification-state/blob/master/LICENSE"
     }
   ],
+  "os": [
+    "darwin"
+  ],
   "dependencies": {
     "bindings": "^1.5.0"
   },
