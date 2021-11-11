@@ -4,7 +4,7 @@
 + (bool)isEnabled;
 + (bool)enabledByAssertion;
 + (bool)enabledBySchedule;
-+ (NSString*)getFocusMode;
++ (NSString*)getActiveFocusMode;
 + (bool)allowedForBundleId;
 + (NSDictionary*)readJSONData:(NSString*)filePath;
 @end

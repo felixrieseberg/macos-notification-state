@@ -9,27 +9,27 @@
   // ModeConfigurationSecure.json - Contains Apps allowed in DND mode
 
   // 1. check assertion
-  bool isDNDEnabled = [self enabledByAssertion];
+  bool isFocusModeEnabled = [self enabledByAssertion];
 
-  if (!isDNDEnabled) {
+  if (!isFocusModeEnabled) {
     // 2. check schedule config
-    isDNDEnabled = [self enabledBySchedule];
+    isFocusModeEnabled = [self enabledBySchedule];
   }
 
-  if (isDNDEnabled) {
+  if (isFocusModeEnabled) {
     // 3 additional check is bundleIdentifier allowed while DND is on
     bool isBundleIdAllowedInDND = [self allowedForBundleId];
     // DND is "off" for current application
     return !isBundleIdAllowedInDND;
   }
-  return isDNDEnabled;
+  return isFocusModeEnabled;
 }
 
 + (bool)allowedForBundleId {
   NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
 
   if (bundleIdentifier) {
-    NSString *focusMode = [self getFocusMode];
+    NSString *focusMode = [self getActiveFocusMode];
     NSDictionary *modeConfigSecureDict =
         [self readJSONData:
                   @"~/Library/DoNotDisturb/DB/ModeConfigurationsSecure.json"];
@@ -57,7 +57,7 @@
   return false;
 }
 
-+ (NSString *)getFocusMode {
++ (NSString *)getActiveFocusMode {
   NSDictionary *assertDict =
       [self readJSONData:@"~/Library/DoNotDisturb/DB/Assertions.json"];
 
@@ -132,7 +132,7 @@
   NSDictionary *modeConfigDict =
       [self readJSONData:@"~/Library/DoNotDisturb/DB/ModeConfigurations.json"];
 
-  NSString *focusMode = [self getFocusMode];
+  NSString *focusMode = [self getActiveFocusMode];
   bool hasActiveTrigger = false;
   NSArray *triggers = [[[[[[modeConfigDict valueForKey:@"data"] objectAtIndex:0]
       valueForKey:@"modeConfigurations"]
