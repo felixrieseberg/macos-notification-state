@@ -9,30 +9,33 @@
   // ModeConfigurationSecure.json - Contains Apps allowed in DND mode
 
   // 1. check assertion
-  bool isDNDEnabled = [self enabledByAssertion];
-  if (!isDNDEnabled) {
+  bool isFocusModeEnabled = [self enabledByAssertion];
+
+  if (!isFocusModeEnabled) {
     // 2. check schedule config
-    isDNDEnabled = [self enabledBySchedule];
+    isFocusModeEnabled = [self enabledBySchedule];
   }
 
-  if (isDNDEnabled) {
+  if (isFocusModeEnabled) {
     // 3 additional check is bundleIdentifier allowed while DND is on
     bool isBundleIdAllowedInDND = [self allowedForBundleId];
     // DND is "off" for current application
-    isDNDEnabled = !isBundleIdAllowedInDND;
+    return !isBundleIdAllowedInDND;
   }
-  return isDNDEnabled;
+  return isFocusModeEnabled;
 }
 
 + (bool)allowedForBundleId {
   NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+
   if (bundleIdentifier) {
+    NSString *focusMode = [self getActiveFocusMode];
     NSDictionary *modeConfigSecureDict =
         [self readJSONData:
                   @"~/Library/DoNotDisturb/DB/ModeConfigurationsSecure.json"];
     NSDictionary *allowedApps = [[[[[[modeConfigSecureDict valueForKey:@"data"]
         objectAtIndex:0] valueForKey:@"secureModeConfigurations"]
-        valueForKey:@"com.apple.donotdisturb.mode.default"]
+        valueForKey:focusMode]
         valueForKey:@"secureConfiguration"] valueForKey:@"allowedApplications"];
 
     if (!allowedApps)
@@ -52,6 +55,32 @@
     }
   }
   return false;
+}
+
++ (NSString *)getActiveFocusMode {
+  NSDictionary *assertDict =
+      [self readJSONData:@"~/Library/DoNotDisturb/DB/Assertions.json"];
+
+  if (!assertDict) {
+    return @"NONE";
+  }
+
+  NSDictionary *assertionData =
+      [[assertDict valueForKey:@"data"] objectAtIndex:0];
+  NSArray *storeAssertionRecords =
+      [assertionData valueForKey:@"storeAssertionRecords"];
+
+  if (storeAssertionRecords) {
+    for (NSDictionary *assertion in storeAssertionRecords) {
+      NSDictionary *assertionDetails = [assertion objectForKey:@"assertionDetails"];
+
+      NSString *assertionDetailsModeIdentifier =
+      [assertionDetails objectForKey:@"assertionDetailsModeIdentifier"];
+      return assertionDetailsModeIdentifier;
+    }
+
+  }
+  return @"NONE";
 }
 
 + (bool)enabledByAssertion {
@@ -103,10 +132,11 @@
   NSDictionary *modeConfigDict =
       [self readJSONData:@"~/Library/DoNotDisturb/DB/ModeConfigurations.json"];
 
+  NSString *focusMode = [self getActiveFocusMode];
   bool hasActiveTrigger = false;
   NSArray *triggers = [[[[[[modeConfigDict valueForKey:@"data"] objectAtIndex:0]
       valueForKey:@"modeConfigurations"]
-      valueForKey:@"com.apple.donotdisturb.mode.default"]
+      valueForKey:focusMode]
       valueForKey:@"triggers"] valueForKey:@"triggers"];
   if (triggers) {
     if ([triggers count] == 0) {
