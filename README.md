@@ -28,5 +28,12 @@ console.log(getNotificationState())
 console.log(getSessionState())
 ```
 
+## Not working?
+
+This package _needs_ to be compiled with at least the macOS 11.0 SDK. If not, the internal
+operating system info will always return 10.16, rendering the package unusable.
+
+To see the current version, run `xcrun --show-sdk-version`.
+
 #### License
 MIT, please see LICENSE for details. Copyright (c) 2019 Felix Rieseberg.

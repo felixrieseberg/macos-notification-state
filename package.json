@@ -4,6 +4,7 @@
   "description": "macOS notification state as a native node addon",
   "main": "lib/index.js",
   "scripts": {
+    "preinstall": "node ensure-sdk.js",
     "test": "standard && mocha ./test/test.js"
   },
   "repository": "https://github.com/felixrieseberg/macos-notification-state",
@@ -31,7 +32,7 @@
     "do not disturb"
   ],
   "devDependencies": {
-    "mocha": "^8.2.0",
+    "mocha": "^9.2.0",
     "standard": "^16.0.1"
   }
 }
