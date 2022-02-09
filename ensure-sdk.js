@@ -5,7 +5,7 @@ console.log(
 );
 
 function check() {
-  if (process.env.MACOS_NOTIFICATION_STATE_NO_SDK_CHECK) {
+  if (process.env.MACOS_NOTIFICATION_STATE_NO_SDK_CHECK || process.platform !== "darwin") {
     return;
   }
 
