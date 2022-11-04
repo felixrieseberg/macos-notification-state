@@ -8,12 +8,12 @@ bool getDoNotDisturb() {
       [[NSProcessInfo processInfo] operatingSystemVersion];
   bool isBigSur = version.majorVersion == 11 ||
                   (version.majorVersion == 10 && version.minorVersion > 15);
-  bool isMonterey = version.majorVersion == 12;
+  bool isAtLeastMonterey = version.majorVersion >= 12;
 
   @try {
     if (isBigSur) {
       return getBigSurMacOSDND();
-    } else if (isMonterey) {
+    } else if (isAtLeastMonterey) {
       return [MontereyDND isEnabled];
     } else {
       return getOldMacOSDND();
