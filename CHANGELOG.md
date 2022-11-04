@@ -1,3 +1,6 @@
+# 2.0.2
+- Support macOS 13, fixing a "if version === 12" check
+
 # 2.0.1
 - Fix broken preinstall on Windows
 
