@@ -1,6 +1,6 @@
 {
   "name": "macos-notification-state",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "macOS notification state as a native node addon",
   "main": "lib/index.js",
   "scripts": {
@@ -16,7 +16,8 @@
     }
   ],
   "dependencies": {
-    "bindings": "^1.5.0"
+    "bindings": "^1.5.0",
+    "node-addon-api": "3.0.0"
   },
   "author": {
     "email": "felix@felixrieseberg.com",
