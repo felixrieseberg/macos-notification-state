@@ -2,10 +2,11 @@
   "targets": [
     {
       "target_name": "notificationstate",
-      "sources": [ "lib/notificationstate.cc" ],
+      "sources": [],
       "conditions": [
         ['OS=="mac"', {
           "sources": [
+            "lib/notificationstate.cc",
             "lib/notificationstate-query.cc", 
             "lib/do-not-disturb.mm", 
             "lib/macos-version.mm",
@@ -22,9 +23,10 @@
     },
     {
       "target_name": "focuscenter",
-      "sources": [ "lib/focus-center.mm" ],
+      "sources": [],
       "conditions": [
         ['OS=="mac"', {
+          "sources": ["lib/focus-center.mm"],
           'include_dirs' : [ "<!@(node -p \"require('node-addon-api').include\")" ],
           'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS' ],
           "xcode_settings": {
