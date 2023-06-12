@@ -1209,7 +1209,7 @@ natural-compare@^1.4.0:
 
 node-addon-api@3.0.0:
   version "3.0.0"
-  resolved "https://qanpm.qaintermedia.net/node-addon-api/-/node-addon-api-3.0.0.tgz#812446a1001a54f71663bed188314bba07e09247"
+  resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-3.0.0.tgz#812446a1001a54f71663bed188314bba07e09247"
   integrity sha512-sSHCgWfJ+Lui/u+0msF3oyCgvdkhxDbkCS6Q8uiJquzOimkJBvX6hl5aSSA7DR1XbMpdM8r7phjcF63sF4rkKg==
 
 normalize-package-data@^2.3.2:
